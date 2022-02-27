@@ -1,9 +1,24 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
+import MainLayout from "../components/layout/main";
+import { NextPageWithLayout } from "../models/common";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
+  const router = useRouter();
+  const goToDetailPage = () => {
+    // router.push("/posts/123");
+    router.push({
+      pathname: "/posts/[postId]",
+      query: {
+        postId: 123,
+        ref: "social",
+      },
+    });
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -18,9 +33,15 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
+
+        <Link href="/about">
+          <a>Go to about</a>
+        </Link>
+
+        <button onClick={goToDetailPage}>Go to post detail</button>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -59,14 +80,16 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          biet roi by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+Home.Layout = MainLayout;
+
+export default Home;
