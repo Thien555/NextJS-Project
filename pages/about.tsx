@@ -48,7 +48,6 @@ const AboutPage = (props: AboutPageProps) => {
 
 AboutPage.Layout = AdminLayout; // su dung mainlayout cho trang about nay
 export function getStaticProps() {
-	console.log('thien');
 	return {
 		props: {},
 	};
