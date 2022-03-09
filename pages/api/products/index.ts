@@ -1,12 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import axios from 'axios';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  name: string;
-};
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: "get list of product" });
+type Data =
+	| {
+			data: any[];
+			pagination: any;
+	  }
+	| { name: string };
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+	if (req.method !== 'GET') {
+		return res.status(404).json({ name: 'not support method' });
+	}
+	const response = await axios.get('https://js-post-api.herokuapp.com/api/posts?_page=1&_limit=10');
+	res.status(200).json(response.data);
 }

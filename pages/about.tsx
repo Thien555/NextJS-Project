@@ -1,7 +1,9 @@
+import { Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 import React, { useEffect, useState } from 'react';
 import Header from '../components/common/header';
+import { AdminLayout } from '../components/layout/admin';
 import MainLayout from '../components/layout/main';
 import handler from './api/hello';
 // import dynamic from "next/dynamic";
@@ -14,26 +16,7 @@ const AboutPage = (props: AboutPageProps) => {
 	const route = useRouter();
 	const [postList, setPostList] = useState([]);
 	const page = Number(route.query.page);
-	// useEffect(() => {
-	// 	if (!page) return;
-	// 	(async () => {
-	// 		const res = await axios.get(`https://js-post-api.herokuapp.com/api/posts?_page=${page}`);
-	// 		setPostList(res.data.data);
-	// 	})();
-	// }, [page]);
-	// console.log('about query', route.query);
-	// const handleOnClick = () => {
-	// 	route.push(
-	// 		{
-	// 			pathname: '/about',
-	// 			query: {
-	// 				page: Number(route.query.page) + 1,
-	// 			},
-	// 		},
-	// 		undefined,
-	// 		{ shallow: true }
-	// 	);
-	// };
+
 	useEffect(() => {
 		if (!page) return;
 		(async () => {
@@ -48,8 +31,10 @@ const AboutPage = (props: AboutPageProps) => {
 		});
 	};
 	return (
-		<div>
-			<h1>About Page</h1>
+		<Box>
+			<Typography component="h1" variant="h3" color="primary.main">
+				About Page
+			</Typography>
 			<Header />
 			<ul>
 				{postList.map((post: any) => (
@@ -57,11 +42,11 @@ const AboutPage = (props: AboutPageProps) => {
 				))}
 			</ul>
 			<button onClick={handleOnClick}>Next</button>
-		</div>
+		</Box>
 	);
 };
 
-AboutPage.Layout = MainLayout; // su dung mainlayout cho trang about nay
+AboutPage.Layout = AdminLayout; // su dung mainlayout cho trang about nay
 export function getStaticProps() {
 	console.log('thien');
 	return {

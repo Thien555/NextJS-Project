@@ -87,6 +87,6 @@ const Home: NextPageWithLayout = () => {
 	);
 };
 
-Home.Layout = MainLayout;
+Home.Layout = MainLayout; //su dung mainlayout cho trang home
 
 export default Home;
